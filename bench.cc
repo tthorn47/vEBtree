@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <set>
-//#include <random>
 #include "vebTree.hpp"
 
 int main(int argc, char** argv){
@@ -35,10 +34,11 @@ int main(int argc, char** argv){
     std::set<uint32_t>* bt = new std::set<uint32_t>();
     vebTree* v = new vebTree((uint64_t)(UINT32_MAX)+1);
 
+    //INSERT
+
     high_resolution_clock::time_point t1,t2;
     t1 = high_resolution_clock::now();
     for(size_t i = 0; i < N; i++){
-        //printf("ins %u\n", ins[i]);
         insert(v, ins[i]);
     }
     t2 = high_resolution_clock::now();
@@ -47,18 +47,16 @@ int main(int argc, char** argv){
 
     t1 = high_resolution_clock::now();
     for(size_t i = 0; i < N; i++){
-        //printf("ins %u\n", ins[i]);
         bt->insert(ins[i]);
     }
     t2 = high_resolution_clock::now();
     fprintf(out, "%f\n",elapsed(t1,t2));
     printf("std::Set Time to insert %lu items: %f secs\n", N, elapsed(t1,t2));
 
-    //shuffle(toFind,toFind+N,std::default_random_engine(t1.time_since_epoch().count()));
+    //FIND
 
     t1 = high_resolution_clock::now();
     for(size_t i = 0; i < N; i++){
-        //printf("ins %u\n", ins[i]);
         find(v, toFind[i]);
     }
     t2 = high_resolution_clock::now();
@@ -67,16 +65,16 @@ int main(int argc, char** argv){
     
     t1 = high_resolution_clock::now();
     for(size_t i = 0; i < N; i++){
-        //printf("ins %u\n", ins[i]);
         bt->find(toFind[i]);
     }
     t2 = high_resolution_clock::now();
     fprintf(out, "%f\n",elapsed(t1,t2));
     printf("std::Set Time to find %lu items: %f secs\n", N, elapsed(t1,t2));
 
+    //SUCCESSOR
+
     t1 = high_resolution_clock::now();
     for(size_t i = 0; i < N; i++){
-        //printf("ins %u\n", ins[i]);
         succ(v, suc[i]);
     }
     t2 = high_resolution_clock::now();
@@ -85,7 +83,6 @@ int main(int argc, char** argv){
 
     t1 = high_resolution_clock::now();
     for(size_t i = 0; i < N; i++){
-        //printf("ins %u\n", ins[i]);
         bt->upper_bound(suc[i]);
     }
     t2 = high_resolution_clock::now();
